@@ -1,0 +1,39 @@
+# create bridge network
+docker network create apirun_net
+
+# start mariadb
+docker run --name db -v mysql_db:/var/lib/mysql --restart=always -e MYSQL_ROOT_PASSWORD=pythonvip -e MYSQL_DATABASE=mydb -d --network apirun_net mariadb --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+# test mysql connector.测试mysql链接
+docker run -it --network apirun_net --rm mariadb mysql -hdb -uroot -p
+
+# build lemon-test-nginx image.在nginx-docekr目录下构建镜像。
+docker build -t ghm/api-test-nginx:v7 .
+
+# build django_app image   在django项目下执行
+docker build -t ghm/django_app:v7 .
+
+# start django_app   name名称必须和 default.conf的upstream一致。
+docker run --name django_app -v logs:/usr/src/app/logs/ -v django_code:/usr/src/app/LearnDjango/ -p 8000:8000 --restart=always -d --network apirun_net ghm/django_app:v7
+
+# start web 8866前端接口 8800后端接口。注意前端api.js 文件。同步修改端口
+docker run --name web -v logs:/var/log/nginx/ -p 8866:80 -p 8800:8000 --restart=always -d --network apirun_net ghm/api-test-nginx:v7
+
+
+# restoring datas
+MariaDB [(none)]> USE mysql;
+MariaDB [(none)]> UPDATE user SET password=PASSWORD('pythonvip') WHERE User='root' AND Host = '%';
+MariaDB [(none)]> FLUSH PRIVILEGES;
+
+docker exec -i db sh -c 'exec mysql -uroot -p""' < test.sql
+docker exec -i db sh -c 'exec mysql -udjango -p"pythonvip" -A test' < test.sql
+
+docker exec -i deploydjango_db_1 sh -c 'exec mysql -uroot -p"pythonvip" -A test' < ./datas/01_tb_projects.sql
+docker exec -i deploydjango_db_1 sh -c 'exec mysql -uroot -p"pythonvip" -A test' < ./datas/02_tb_interfaces.sql
+docker exec -i deploydjango_db_1 sh -c 'exec mysql -uroot -p"pythonvip" -A test' < ./datas/03_tb_testcases.sql
+docker exec -i deploydjango_db_1 sh -c 'exec mysql -uroot -p"pythonvip" -A test' < ./datas/04_tb_configures.sql
+docker exec -i deploydjango_db_1 sh -c 'exec mysql -uroot -p"pythonvip" -A test' < ./datas/05_tb_testsuits.sql
+docker exec -i deploydjango_db_1 sh -c 'exec mysql -uroot -p"pythonvip" -A test' < ./datas/06_tb_reports.sql
+docker exec -i deploydjango_db_1 sh -c 'exec mysql -uroot -p"pythonvip" -A test' < ./datas/07_tb_debugtalks.sql
+docker exec -i deploydjango_db_1 sh -c 'exec mysql -uroot -p"pythonvip" -A test' < ./datas/08_tb_envs.sql
+
