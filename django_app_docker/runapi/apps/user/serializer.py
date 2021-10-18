@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 from rest_framework import serializers
-
+import time
 # 继承Serializer类或者 于类
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
@@ -101,6 +101,19 @@ class RegisterSerializer(serializers.ModelSerializer):
         token = jwt_encode_handler(payload)
         user.token = token
         return user
+
+
+class LogOutSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        # django自带的model
+        model = User
+        # 指定模型类的字段,来生成序列化器
+        fields = ('id',)
+
+    def update(self, instance, validated_data):
+        validated_data['last_login'] = time.strftime("%Y-%m-%d %H:%M:%S")
+        return super().update(instance, validated_data)
 
 
 
