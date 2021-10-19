@@ -43,7 +43,7 @@ class InterfacesAnothrSerializer(serializers.ModelSerializer):
         :param attrs:
         :return:
         """
-        if not Interfaces.objects.filter(id=attrs['iid'], project_id = attrs['pid'], is_delete=0).exits():
+        if not Interfaces.objects.filter(id=attrs['iid'], project_id = attrs['pid'], is_delete=0).exists():
             raise serializers.ValidationError('项目和该接口不匹配')
         return attrs
 
@@ -71,7 +71,7 @@ class TestcasesSerializer(serializers.ModelSerializer):
         # 用了上面的序列化之后 即使前端传给我id 我这边也是接受到了项目名称。
         interface_dict = validated_data.pop('interface')
         validated_data['interface_id'] = interface_dict['iid']
-        interface = Configures.objects.create(**validated_data)
+        interface = TestCases.objects.create(**validated_data)
         return interface
 
     def update(self, instance, validated_data):

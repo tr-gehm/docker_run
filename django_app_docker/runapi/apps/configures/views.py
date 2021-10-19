@@ -10,7 +10,6 @@ from utils.handle_datas import handle_data4, handle_data2
 from .models import Configures
 from .serializer import ConfiguresSerializer
 from interfaces.models import Interfaces
-from utils import handle_datas
 # Create your views here.
 
 
@@ -87,10 +86,5 @@ class ConfiguresViewSet(ModelViewSet):
 
         return Response(data)
 
-    # def get_serializer_class(self):
-    #     if self.action == 'names':
-    #         return InterfaceNameModelSerializer
-    #     else:
-    #         return self.serializer_class
 
 

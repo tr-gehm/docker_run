@@ -12,15 +12,18 @@ from rest_framework import serializers
 # 继承Serializer类或者 于类
 from rest_framework.validators import UniqueValidator
 
-from projects.serializer import ProjectModelSerializer
+import validates
+from base_serializers import RunSerializer
 from interfaces.models import Interfaces
 from projects.models import Projects
+
 
 class InterfaceModelSerializer(serializers.ModelSerializer):
     # StringRelatedField 将关联对象（模型类）的指定字段数据进行序列化输出。
     project = serializers.StringRelatedField(label='所属项目名称', help_text='所属项目名称')
     project_id = serializers.PrimaryKeyRelatedField(label='所属项目id', help_text='所属项目id',
                                                     queryset=Projects.objects.filter(is_delete=0))
+
     class Meta:
         # 指定参考哪一个模型类
         model = Interfaces
@@ -56,4 +59,8 @@ class InterfaceNameModelSerializer(serializers.ModelSerializer):
         fields = ("id", "name")
 
 
+class InterfaceRunSerializer(RunSerializer):
+
+    class Meta(RunSerializer.Meta):
+        model = Interfaces
 

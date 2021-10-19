@@ -9,6 +9,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
+from base_serializers import RunSerializer
 from debugtalks.models import DebugTalks
 from projects.models import Projects
 from interfaces.models import Interfaces
@@ -80,13 +81,7 @@ class InterfacesByProjectIdSerializer(serializers.ModelSerializer):
         fields = ("id", "interfaces_set")
 
 
-class ProjectRunSerializer(serializers.ModelSerializer):
-    """
-    通过项目运行测试用例序列化器
-    """
-    env_id = serializers.IntegerField(label="所属环境id", help_text="所属环境id",
-                                      validators=[validates.where_existed_env_id])
+class ProjectRunSerializer(RunSerializer):
 
-    class Meta:
+    class Meta(RunSerializer.Meta):
         model = Projects
-        fields = ('id', 'env_id')

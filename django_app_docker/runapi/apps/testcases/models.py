@@ -9,7 +9,7 @@ class TestCases(BaseModel):
     name = models.CharField(verbose_name='用例名称', max_length=50, unique=True, help_text='用例名称')
     interface = models.ForeignKey('interfaces.Interfaces', on_delete=models.CASCADE,
                                 verbose_name='所属接口', help_text='所属接口')
-    include = models.TextField(verbose_name='前置条件', max_length=30, help_text='用例执行前置顺序')
+    include = models.TextField(verbose_name='前置条件', help_text='用例执行前置顺序', null=True)
     author = models.CharField(verbose_name='编写人员', max_length=200, help_text='编写人员', blank=True, default='tester',null=True)
     request = models.TextField("请求信息", help_text="请求信息")
 
