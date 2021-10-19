@@ -11,11 +11,12 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from envs.models import Envs
+from interfaces.models import Interfaces
 from testcases.models import TestCases
 from utils import common
 from .models import Testsuits
 from rest_framework import viewsets, permissions, status
-from .serializer import TestsuitsModelSerializer, TestsuitsRunSerializer
+from .serializer import TestsuitsModelSerializer, TestsuitRunSerializer
 from .utils import get_testcases_by_interfaces_id
 
 
@@ -82,7 +83,7 @@ class TestsuitsViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data)
         serializer.is_valid(raise_exception=True)
-        datas = serializer.validates_data
+        datas = serializer.validated_data
         env_id = datas.get('env_id')
 
         # 创建测试用例所在目录名
@@ -105,12 +106,49 @@ class TestsuitsViewSet(viewsets.ModelViewSet):
             testcase_obj = TestCases.objects.filter(is_delete=0, interface=testcase_id)
             # 取出所有用例
             if testcase_obj:
-                common.generate_testcase_file(testcase_obj, env, testcase_dir_path)
-
+                for one_obj in testcase_obj:
+                    common.generate_testcase_file(one_obj, env, testcase_dir_path)
         return common.run_testcase(instance, testcase_dir_path)
+
+    # # 获取套件下的接口
+    # @action(methods=['get'], detail=True)
+    # def interfaces(self, request, pk=None):
+    #
+    #     instance = self.get_object()
+    #     include = eval(instance.include)
+    #     one_list = []
+    #     for id in include:
+    #         name = Interfaces.objects.filter(is_delete=0, id=id).values('name')
+    #         one_list.append(
+    #             {'id': id,
+    #              'name': name[0]['name']})
+    #     return Response(data=one_list)
+    #
+    # # 获取套件没有使用的接口
+    # @action(methods=['get'], detail=True)
+    # def interfaces_no(self, request, pk=None):
+    #
+    #     instance = self.get_object()
+    #     include = eval(instance.include)
+    #     one_list = []
+    #
+    #     all_id = Interfaces.objects.filter(is_delete=0).values('id')
+    #     a = []
+    #     for id in all_id:
+    #         a.append(id['id'])
+    #     for i in include:
+    #         a.remove(i)
+    #
+    #     one_list = []
+    #     for id in a:
+    #         name = Interfaces.objects.filter(is_delete=0, id=id).values('name')
+    #         one_list.append(
+    #             {'id': id,
+    #              'name': name[0]['name']})
+    #     return Response(data=one_list)
 
     def get_serializer_class(self):
         if self.action == 'run' :
-            return TestsuitsRunSerializer
+            return TestsuitRunSerializer
         else:
             return self.serializer_class

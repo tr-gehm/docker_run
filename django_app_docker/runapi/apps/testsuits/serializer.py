@@ -4,7 +4,8 @@
 # @Author : ASUS
 # @File : XIAOMING.py
 # @Software: PyCharm
-
+import json
+import re
 
 from rest_framework import serializers
 
@@ -12,6 +13,7 @@ from rest_framework import serializers
 # 继承Serializer类或者 于类
 from rest_framework.validators import UniqueValidator
 
+from base_serializers import RunSerializer
 from projects.serializer import ProjectModelSerializer
 from interfaces.models import Interfaces
 from projects.models import Projects
@@ -40,11 +42,28 @@ class TestsuitsModelSerializer(serializers.ModelSerializer):
             }
         }
 
+    def validate_include(self, attr):
+        result = re.match(r'^\[\d+(, *\d+)*\]$', attr)
+        if result is None:
+            raise serializers.ValidationError('include参数格式有误')
+
+        # 取出匹配成功之后的数据
+        result = result.group()
+        try:
+            data = json.loads(result)
+        except Exception:
+            raise serializers.ValidationError('include参数格式有误')
+
+        for item in data:
+            if not Interfaces.objects.filter(id=item).exists():
+                raise serializers.ValidationError('接口id不存在')
+        return attr
+
     def create(self, validated_data):
         # 用了上面的序列化之后 即使前端传给我id 我这边也是接受到了项目名称。
         project = validated_data.pop('project_id')
         validated_data['project'] = project
-        interface = Interfaces.objects.create(**validated_data)
+        interface = Testsuits.objects.create(**validated_data)
         return interface
 
     def update(self, instance, validated_data):
@@ -55,19 +74,11 @@ class TestsuitsModelSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-class TestsuitsRunSerializer(serializers.ModelSerializer):
+class TestsuitRunSerializer(RunSerializer):
 
-    """
-    通过套件运行测试用例
-    """
-    env_id = serializers.IntegerField(write_only=True,
-                                      help_text="环境变量ID",
-                                      validators=[validates.where_existed_env_id])
-    class Meta:
-        # 指定参考哪一个模型类
+    class Meta(RunSerializer.Meta):
         model = Testsuits
-        # 指定具体字段
-        fields = ("id", "env_id")
+
 
 
 

@@ -43,7 +43,7 @@ def get_testcases_by_interfaces_id(ids_list):
     for interface_id in ids_list:
         # vales_list:返回指定的字段，而不是查询集了
         testcases_qs = TestCases.objects.values_list('id', flat=True).\
-            filter(interface_id=interface_id, is_delet=0)
+            filter(interface_id=interface_id, is_delete=0)
         one_list.extend(list(testcases_qs))
     return one_list
 
