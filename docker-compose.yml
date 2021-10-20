@@ -4,14 +4,14 @@ version: '2.0'
 # 定义服务（类似于容器）
 services:
    # 创建具体的服务（容器）
-#   db:
+#   [MYSQL_CONTAINER_NAME]:
 #     # 指定镜像名称
-#     image: mariadb
+#     image:  maria[MYSQL_CONTAINER_NAME]:10.6.3
 #     # 指定在运行容器时，传递的参数
 #     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 #     # 指定当前服务使用的数据卷
 #     volumes:
-#       - mysql_db:/var/lib/mysql
+#       - mysql_[MYSQL_CONTAINER_NAME]:/var/lib/mysql
 #     environment:
 #      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 #      MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -25,7 +25,7 @@ services:
      # build指定Dockerfile所在路径
      build: ./django_app_docker
      # 指定构建后的镜像名称
-     image: ghm/django_app:${DJANGO_APP_VERSION}
+     image: ghm/django_app:${DJANGO_IMAGE_TAG}
      # 指定重启策略
      restart: always
      volumes:
@@ -36,7 +36,7 @@ services:
      depends_on:
        - django_app
      build: ./nginx_docker
-     image: ghm/api-test-nginx:${WEB_VERSION}
+     image: ghm/api-test-nginx:${WEB_IMAGE_TAG}
      restart: always
      ports:
        - "${WEB_EXPOSE_PORT}:80"
