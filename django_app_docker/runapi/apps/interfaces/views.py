@@ -11,7 +11,7 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 
-import common
+from utils import common
 from configures.models import Configures
 from envs.models import Envs
 from interfaces.models import Interfaces
