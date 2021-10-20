@@ -1,0 +1,23 @@
+{
+  "id": "2870297",
+  "name": "el-ghm",
+  "font_family": "iconfont",
+  "css_prefix_text": "el-ghm",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4552970",
+      "name": "邮箱",
+      "font_class": "youxiang",
+      "unicode": "e908",
+      "unicode_decimal": 59656
+    },
+    {
+      "icon_id": "24930650",
+      "name": "绑定手机",
+      "font_class": "bangdingshouji",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    }
+  ]
+}
