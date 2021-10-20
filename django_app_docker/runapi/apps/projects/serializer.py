@@ -9,7 +9,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from base_serializers import RunSerializer
+from utils.base_serializers import RunSerializer
 from debugtalks.models import DebugTalks
 from projects.models import Projects
 from interfaces.models import Interfaces

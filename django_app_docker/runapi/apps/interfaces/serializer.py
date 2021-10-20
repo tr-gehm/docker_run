@@ -13,7 +13,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 import validates
-from base_serializers import RunSerializer
+from utils.base_serializers import RunSerializer
 from interfaces.models import Interfaces
 from projects.models import Projects
 

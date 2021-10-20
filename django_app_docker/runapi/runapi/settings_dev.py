@@ -24,6 +24,10 @@ REPORTS_DIR = os.path.join(BASE_DIR, 'report')
 # 测试yaml文件 所在目录
 SUITES_DIR = os.path.join(BASE_DIR, 'suite')
 PROJECT_DIR = os.path.join(BASE_DIR, 'projects_dir')
+# 指定用于收集静态文件服务的路径
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -188,7 +192,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

@@ -13,12 +13,10 @@ from rest_framework import serializers
 # 继承Serializer类或者 于类
 from rest_framework.validators import UniqueValidator
 
-from base_serializers import RunSerializer
-from projects.serializer import ProjectModelSerializer
+from utils.base_serializers import RunSerializer
 from interfaces.models import Interfaces
 from projects.models import Projects
 from testsuits.models import Testsuits
-from utils import validates
 
 
 class TestsuitsModelSerializer(serializers.ModelSerializer):
