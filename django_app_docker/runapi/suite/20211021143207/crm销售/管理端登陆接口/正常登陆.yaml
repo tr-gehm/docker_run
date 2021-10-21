@@ -1,0 +1,24 @@
+- config:
+    name: 测试
+    request:
+      base_url: https://bj-test2.clink.cn/console
+      headers:
+        cookie: SECURITY_TOKEN_CONSOLE_PLUS=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZGVudGlmaWVyIjoiYWxpeXVuLXRlc3QyIiwiem9uZV9pZCI6IkFzaWEvU2hhbmdoYWkiLCJ1c2VyX2lkIjo2MzQ1LCJsb2dpbl90aW1lIjoxNjM0Nzk1NjkzNzIxLCJpcCI6IjYxLjEzMi41OS4xNzEiLCJpc3MiOiJjbGluay1jb25zb2xlLXBsdXMiLCJlbnRlcnByaXNlX2lkIjo4MDAwNTYxLCJsb2NhbGUiOiJ6aC1DTiIsInBsYXRmb3JtIjoiIiwidXNlcm5hbWUiOiJnZWhtIn0.YoehGkoQczV4bLXpfB4MQtu6z0mA3FFK_K9QpizP4Mak0n2kNm3anIFpFiV3BvHgQ75Ra8w57PtCQKR3eR1x0j47_GMA8Hnpox7HjGdDAnBsYBt7gn8Dy9DllOBgZ_cSVduIEMFshKXpjx4BCRLQCtjwJIX3bEBpD1NJsgNd9bU;
+          Domain=clink.cn; Path=/; HttpOnly
+- test:
+    name: 正常登陆
+    parameters:
+    - username:
+      - gehm
+    request:
+      json:
+        identifier: aliyun-test2
+        password: afdd0b4ad2ec172c586e2150770fbf9e
+        target: console
+        username: $username
+      method: POST
+      url: /login
+    validate:
+    - check: status_code
+      comparator: equals
+      expected: 200

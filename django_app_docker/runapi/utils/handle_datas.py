@@ -119,7 +119,7 @@ def handle_data3(datas):
             value = one_dict.get(key)
             # 如果参数化的值为列表, 则转化为字符串形式
             if isinstance(value, list):
-                value = str(value)
+                value = str(value).replace("'",'"')
             result_list.append({
                 "key": key,
                 "value": value
