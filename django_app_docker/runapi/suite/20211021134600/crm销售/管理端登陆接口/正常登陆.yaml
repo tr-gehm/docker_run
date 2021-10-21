@@ -1,0 +1,25 @@
+- config:
+    name: 测试
+    request:
+      base_url: https://bj-test2.clink.cn/console
+      headers:
+        cookie: ${cookie}
+- test:
+    name: 正常登陆
+    parameters:
+    - username:
+      - gehm
+    request:
+      headers:
+        cookie: ${cookie}
+      json:
+        identifier: aliyun-test2
+        password: afdd0b4ad2ec172c586e2150770fbf9e
+        target: console
+        username: ${username}
+      method: POST
+      url: /login
+    validate:
+    - check: status_code
+      comparator: equals
+      expected: '200'

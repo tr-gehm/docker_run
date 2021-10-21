@@ -3,7 +3,7 @@ import re
 import os
 from datetime import datetime
 
-from django.http import StreamingHttpResponse
+from django.http import StreamingHttpResponse, HttpResponse
 from django.utils.encoding import escape_uri_path
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -87,6 +87,11 @@ class ReportsViewSet(ModelViewSet):
         return response
 
     def retrieve(self, request, *args, **kwargs):
+        id = Reports.objects.filter(id=kwargs['pk'], is_delete=0).exists()
+        if not id:
+            return Response({
+                'err': '测试报告已删除'
+            }, status=status.HTTP_400_BAD_REQUEST)
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         data = serializer.data
@@ -99,18 +104,8 @@ class ReportsViewSet(ModelViewSet):
                     }, status=status.HTTP_400_BAD_REQUEST)
 
 
-    # def retrieve(self, request, *args, **kwargs):
-    #     instance = self.get_object()
-    #     try:
-    #         summary = json.loads(instance.summary, encoding='utf-8')
-    #         return Response({
-    #             'id': instance.id,
-    #             'summary': summary
-    #         }, status=status.HTTP_200_OK)
-    #     except Exception:
-    #         return Response({
-    #             'err': '测试报告summary格式有误'
-    #         }, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 
 

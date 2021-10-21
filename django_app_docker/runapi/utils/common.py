@@ -136,6 +136,7 @@ def create_report(runner: HttpRunner, instance: TestCases):
 
     report_name = report_name + '_' + datetime.strftime(datetime.now(), '%Y%m%d%H%M%S')
     # report_path = report.gen_html_report(html_report_name=report_name)
+    htmlrepost_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),'report','extent_report_template.html')
     report_path = runner.gen_html_report(html_report_name=report_name)
 
     with open(report_path, encoding='utf-8') as stream:

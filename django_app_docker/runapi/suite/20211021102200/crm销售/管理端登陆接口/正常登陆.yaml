@@ -1,0 +1,24 @@
+- config:
+    name: 测试
+    request:
+      base_url: https://bj-test2.clink.cn/console
+      headers:
+        cookie: SECURITY_TOKEN_CONSOLE_PLUS=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZGVudGlmaWVyIjoiYWxpeXVuLXRlc3QyIiwiem9uZV9pZCI6IkFzaWEvU2hhbmdoYWkiLCJ1c2VyX2lkIjo2MzQ1LCJsb2dpbl90aW1lIjoxNjM0NzgyNjc0MTEzLCJpcCI6IjE3Mi4xMDQuNTUuMjM3IiwiaXNzIjoiY2xpbmstY29uc29sZS1wbHVzIiwiZW50ZXJwcmlzZV9pZCI6ODAwMDU2MSwibG9jYWxlIjoiemgtQ04iLCJwbGF0Zm9ybSI6IiIsInVzZXJuYW1lIjoiZ2VobSJ9.pEeAZp6c7cCbg7Q0VJBaVppBhjUqnWsEpnChbT89oaYsYK5W8nUpPXIRxoyiqzNOAGN90UOQ22bHYX36WfLx4J1njjmuPhrPFXXrn6svzi0oDbPE9J0-g33mnW1lCPLUMTp-B0xOUWsP8rGp71Hnrtqo_QNmx1vwWgvI5aroQSg;
+          Domain=clink.cn; Path=/; HttpOnly
+    variables:
+    - cookie: SECURITY_TOKEN_CONSOLE_PLUS=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZGVudGlmaWVyIjoiYWxpeXVuLXRlc3QyIiwiem9uZV9pZCI6IkFzaWEvU2hhbmdoYWkiLCJ1c2VyX2lkIjo2MzQ1LCJsb2dpbl90aW1lIjoxNjM0NjA5MzIyNDc3LCJpcCI6IjYxLjEzMi41OS4xNzEiLCJpc3MiOiJjbGluay1jb25zb2xlLXBsdXMiLCJlbnRlcnByaXNlX2lkIjo4MDAwNTYxLCJsb2NhbGUiOiJ6aC1DTiIsInBsYXRmb3JtIjoiIiwidXNlcm5hbWUiOiJnZWhtIn0.NxRPCxTn-cMtcZ-x2FusrZzuwO8wEwPrFZNrogpdWAg7NsFG4Ue_jexq0e94l3aCaszgfJFY8wtv4IHYfKQpfecOYufYljjnwYWS_QONzJhgacPDOAdUnOkYT4GUf0SeaE1jqBWvSTeKHMTKmARv4sxNqCtukiOcA6Ezr8QfnL8;
+        Domain=clink.cn; Path=/; HttpOnly
+- test:
+    name: 正常登陆
+    request:
+      json:
+        identifier: aliyun-test2
+        password: afdd0b4ad2ec172c586e2150770fbf9e
+        target: console
+        username: gehm
+      method: POST
+      url: /login
+    validate:
+    - check: status_code
+      comparator: equals
+      expected: 200
