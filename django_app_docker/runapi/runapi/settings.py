@@ -152,11 +152,11 @@ DATABASES = {
         # 指定引擎
         'ENGINE': 'django.db.backends.mysql',
         # 指定数据库名称
-        'NAME': 'my_django2',
+        'NAME': os.environ.get('MYSQL_DATABASE'),
         # 数据库用户名，root账号默认不能远程登录
-        'USER': 'ghm',
-        'PASSWORD': '123456',
-        'HOST': '121.43.178.79',
+        'USER': os.environ.get('MYSQL_ONLY_READ_USERNAME'),
+        'PASSWORD': os.environ.get('MYSQL_ONLY_READ_USER_PASSWORD'),
+        'HOST': os.environ.get('MYSQL_CONTAINER_NAME'),
         'PORT': 3306
     }
 }
