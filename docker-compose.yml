@@ -1,23 +1,23 @@
 # 指定版本号
-version: 0'2.0'
+version: '2.0'
 # 定义服务（类似于容器）
 services:
    # 创建具体的服务（容器）
 #   [MYSQL_CONTAINER_NAME]:
 #     # 指定镜像名称
-#     image:  maria[MYSQL_CONTAINER_NAME]:10.6.3
+#     image:  maria${MYSQL_CONTAINER_NAME}:10.6.3
 #     # 指定在运行容器时，传递的参数
 #     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 #     # 指定当前服务使用的数据卷
 #     volumes:
-#       - mysql_[MYSQL_CONTAINER_NAME]:/var/lib/mysql
+#       - mysql_${MYSQL_CONTAINER_NAME}:/var/lib/mysql
 #     environment:
 #      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 #      MYSQL_DATABASE: ${MYSQL_DATABASE}
 #    #  ports:
 #    #    - "13306:3306"
 
-   [DJANGO_CONTAINER_NAME]:
+   ${DJANGO_CONTAINER_NAME}:
      # 指定当前服务的依赖（前置）服务
 #     depends_on:
 #      - ${MYSQL_CONTAINER_NAME}
@@ -38,9 +38,9 @@ services:
        - logs:/usr/src/app/logs/
        - django_code:/usr/src/app/${DJANGO_PROJECT_NAME}/
 
-   [NGINX_CONTAINER_NAME]:
+   ${NGINX_CONTAINER_NAME}:
      depends_on:
-       - $[DJANGO_CONTAINER_NAME]
+       - ${DJANGO_CONTAINER_NAME}
      build:
        context: ./nginx_docker
        args:
@@ -68,6 +68,6 @@ networks:
 
 # 指定数据卷
 volumes:
-#    mysql_[MYSQL_CONTAINER_NAME]:
+#    mysql_${MYSQL_CONTAINER_NAME}:
     django_code:
     logs:
