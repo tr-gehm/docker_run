@@ -22,7 +22,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "Asia/Shanghai" > /etc/timezone && \
     apk del tzdata && \
-    apk update && apk upgrade && \1
+    apk update && apk upgrade && \
     pip install --no-cache-dir -i https://pypi.douban.com/simple -r requirements.txt && \
     pip install -i https://pypi.douban.com/simple gunicorn && \
 	rm -rf /var/cache/apk/* && \
