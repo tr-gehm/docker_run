@@ -33,7 +33,7 @@ services:
      # 指定构建后的镜像名称
      image: ${DJANGO_IMAGE_NAME}:${DJANGO_IMAGE_TAG}
      # 指定重启策略
-     restart: always
+     restart: alwaysdocekr
      volumes:
        - logs:/usr/src/app/logs/
        - django_code:/usr/src/app/${DJANGO_PROJECT_NAME}/
@@ -50,7 +50,7 @@ services:
          SERVER_ADDR: ${SERVER_ADDR}
          DJANGO_CONTAINER_NAME: ${DJANGO_CONTAINER_NAME}
 
-     image: ghm/api-test-nginx:${WEB_IMAGE_TAG}
+     image: ${WEB_IMAGE_NAME}:${WEB_IMAGE_TAG}
      restart: always
      ports:
        - "${FRONT_END_PORT}:80"
