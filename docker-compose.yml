@@ -53,7 +53,7 @@ services:
      image: ghm/api-test-nginx:${WEB_IMAGE_TAG}
      restart: always
      ports:
-       - "${FRONT_END_PORT}:80"
+       - "${FRONT_END_PORT}:80"dock
        - "${BACK_END_PORT}:8000"
      volumes:
        - logs:/var/log/nginx/

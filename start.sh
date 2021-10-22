@@ -56,7 +56,7 @@ function start
     echo -e "静候30秒!!!"
     sleep 30s &> /dev/null
     # 创建数据表
-    create_table
+#    create_table
     echo -e "Very good! 项目启动完成!"
 }
 
@@ -106,7 +106,7 @@ function build_or_rebuild_image
 
     echo -e "开始构建镜像..."
     docker-compose -p "${CONTAINER_NAME_PREFIX}" build --no-cache
-
+0
 }
 
 
