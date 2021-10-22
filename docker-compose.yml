@@ -33,7 +33,7 @@ services:
      # 指定构建后的镜像名称
      image: ${DJANGO_IMAGE_NAME}:${DJANGO_IMAGE_TAG}
      # 指定重启策略
-     restart: alwaysdocekr
+     restart: always
      volumes:
        - logs:/usr/src/app/logs/
        - django_code:/usr/src/app/${DJANGO_PROJECT_NAME}/
