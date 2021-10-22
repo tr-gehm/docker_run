@@ -22,7 +22,7 @@ services:
 #     depends_on:
 #      - ${MYSQL_CONTAINER_NAME}
      # build指定Dockerfile所在路径
-    build:
+     build:
        context: ./django_app_docker
        args:
          PROJECT_NAME: ${DJANGO_PROJECT_NAME}
@@ -31,7 +31,7 @@ services:
          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
          MYSQL_DATABASE: ${MYSQL_DATABASE}
      # 指定构建后的镜像名称
-      image: ${DJANGO_IMAGE_NAME}:${DJANGO_IMAGE_TAG}
+     image: ${DJANGO_IMAGE_NAME}:${DJANGO_IMAGE_TAG}
      # 指定重启策略
      restart: always
      volumes:
