@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'drf_yasg',
+
     # 自己的应用
     'projects.apps.ProjectsConfig',
     'interfaces.apps.InterfacesConfig',
@@ -65,7 +66,7 @@ INSTALLED_APPS = [
     'envs.apps.EnvsConfig',
     'debugtalks.apps.DebugtalksConfig',
     'summary.apps.SummaryConfig',
-    'django_celery_results.apps.DjangoCeleryResultsConfig'
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [

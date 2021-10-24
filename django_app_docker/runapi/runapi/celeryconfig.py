@@ -11,7 +11,7 @@ broker_url = 'amqp://admin:mypass@121.43.178.79:5673//'
 # result_backend = 'redis://127.0.0.1:6379/2'
 
 # 将任务执行结果放在mysql数据库中
-result_backend = 'my_django2'
+result_backend = 'django-db'
 
 # 修改任务序列化类型
 task_serializer = 'pickle'

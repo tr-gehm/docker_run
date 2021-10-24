@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     'envs.apps.EnvsConfig',
     'debugtalks.apps.DebugtalksConfig',
     'summary.apps.SummaryConfig',
-    'django_celery_results.apps.DjangoCeleryResultsConfig'
+    'django_celery_results.apps.DjangoCeleryResultsConfig',
 ]
 
 MIDDLEWARE = [
