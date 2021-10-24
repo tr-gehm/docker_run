@@ -8,7 +8,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'runapi.settings')
 
 # 创建应用
 # app = Celery(main='demo', broker='redis://:332572@127.0.0.1:6379/1')
-app = Celery(main='demo')
+app = Celery(main='demo',broker_url = 'amqp://admin:mypass@121.43.178.79:5673//')
 
 # 导入配置
 app.config_from_object('runapi.celeryconfig')
