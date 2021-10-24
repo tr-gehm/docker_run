@@ -2,7 +2,7 @@ import time
 
 from django.conf import settings
 from httprunner.task import HttpRunner
-from runapi.celery import app
+from ...runapi.celery import app
 from utils import common
 
 

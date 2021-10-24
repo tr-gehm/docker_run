@@ -56,8 +56,9 @@ urlpatterns = [
     path('', include('configures.urls')),
     path('', include('summary.urls')),
     path('', include('reports.urls')),
+    path('', include('django_celery_results.urls')),
     path('api/', include('rest_framework.urls')),
     path('user/', include('user.urls')),
-    path('', include('django_celery_results.urls'))
+
 ]
 

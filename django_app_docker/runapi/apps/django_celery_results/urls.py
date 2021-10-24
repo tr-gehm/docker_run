@@ -15,17 +15,6 @@ from . import views
 task_pattern = r'(?P<task_id>[\w\d\-\.]+)'
 
 urlpatterns = [
-    # url(
-    #     r'^%s/done/?$' % task_pattern,
-    #     views.is_task_successful,
-    #     name='celery-is_task_successful'
-    # ),
-    # url(
-    #     r'^%s/status/?$' % task_pattern,
-    #     views.task_status,
-    #     name='celery-task_status'
-    # ),
-
     path('tasks/<uuid:task_id>/done/', views.is_task_successful, name='celery-is_task_successful'),
     path('tasks/<uuid:task_id>/status/', views.task_status, name='celery-task_status'),
 
