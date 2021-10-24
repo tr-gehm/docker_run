@@ -18,10 +18,23 @@ services:
 #    #  ports:
 #    #    - "13306:3306"
 
+   rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    container_name: 'rabbitmq'
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    ports:
+      - 5673:5672
+      - 15673:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+
    django_app:
      # 指定当前服务的依赖（前置）服务
-#     depends_on:
-#      - db
+     depends_on:
+      - rabbitmq
      # build指定Dockerfile所在路径
      build: ./django_app_docker
      # 指定构建后的镜像名称
@@ -46,6 +59,9 @@ services:
      environment:
        - SERVER_ADDR:${SERVER_ADDR}
 
+
+
+
 #指定网络
 networks:
   default:
@@ -55,5 +71,7 @@ networks:
 # 指定数据卷
 volumes:
 #    mysql_db:
+    rmq:
     django_code:
     logs:
+

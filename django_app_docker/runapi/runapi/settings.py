@@ -64,7 +64,8 @@ INSTALLED_APPS = [
     'reports.apps.ReportsConfig',
     'envs.apps.EnvsConfig',
     'debugtalks.apps.DebugtalksConfig',
-    'summary.apps.SummaryConfig'
+    'summary.apps.SummaryConfig',
+    'django_celery_results.apps.DjangoCeleryResultsConfig'
 ]
 
 MIDDLEWARE = [
@@ -253,3 +254,6 @@ LOGGING = {
     }
 }
 
+
+# celery异步任务执行结果存放至mysql数据库中的id值长度，默认长度为255字节
+DJANGO_CELERY_RESULTS_TASK_ID_MAX_LENGTH = 191

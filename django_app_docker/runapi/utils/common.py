@@ -85,7 +85,7 @@ def generate_testcase_file(instance: TestCases, env: Envs, testcase_dir_path: st
         yaml.dump(testcase_list, one_file, allow_unicode=True)
 
 
-def  run_testcase(instance: TestCases, testcase_dir_path: str):
+def run_testcase(instance: TestCases, testcase_dir_path: str):
     # 创建HttpRunner对象
     hrunner = HttpRunner()
 
