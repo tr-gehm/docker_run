@@ -1,7 +1,9 @@
 # result_backend = 'redis://:332572@127.0.0.1:6379/1'
 
 # BROKER_URL
-broker_url = 'redis://127.0.0.1:6379/1'
+# broker_url = 'redis://127.0.0.1:6379/1' redis
+broker_url = 'amqp://admin:mypass@127.0.0.1:5673//'
+
 
 # a.默认不存在任务执行结果
 # 将任务执行结果放在redis缓存中
