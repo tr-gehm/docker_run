@@ -261,3 +261,6 @@ LOGGING = {
 DJANGO_CELERY_RESULTS_TASK_ID_MAX_LENGTH = 191
 
 platforms.C_FORCE_ROOT = True  #加上这一行
+
+BROKER_URL = 'amqp://admin:mypass@121.43.178.79:5673//'
+
