@@ -17,23 +17,23 @@ services:
 #    #  ports:
 #    #    - "13306:3306"
 
-#   rabbitmq:
-#    image: rabbitmq:3.8-management-alpine
-#    container_name: 'rabbitmq'
-#    environment:
-#      - RABBITMQ_DEFAULT_USER=admin
-#      - RABBITMQ_DEFAULT_PASS=mypass
-#    ports:
-#      - 5673:5672
-#      - 15673:15672
-#    volumes:
-#      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-#      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+   rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    container_name: 'rabbitmq'
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    ports:
+      - 5673:5672
+      - 15673:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
 
    django_app:
      # 指定当前服务的依赖（前置）服务
-#     depends_on:
-#      - rabbitmq
+     depends_on:
+      - rabbitmq
      build:
        context: ./django_app_docker
        args:
