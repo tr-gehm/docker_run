@@ -1,17 +1,16 @@
 # 指定版本号
-version: '2.0'
-
+version: '3'
 # 定义服务（类似于容器）
 services:
    # 创建具体的服务（容器）
-#   [MYSQL_CONTAINER_NAME]:
+#   db:
 #     # 指定镜像名称
-#     image:  maria[MYSQL_CONTAINER_NAME]:10.6.3
+#     image:  mariadb:10.6.3
 #     # 指定在运行容器时，传递的参数
 #     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 #     # 指定当前服务使用的数据卷
 #     volumes:
-#       - mysql_[MYSQL_CONTAINER_NAME]:/var/lib/mysql
+#       - mysql_db:/var/lib/mysql
 #     environment:
 #      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 #      MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -35,10 +34,16 @@ services:
      # 指定当前服务的依赖（前置）服务
      depends_on:
       - rabbitmq
-     # build指定Dockerfile所在路径
-     build: ./django_app_docker
+     build:
+       context: ./django_app_docker
+       args:
+         PROJECT_NAME: ${DJANGO_PROJECT_NAME}
+         MYSQL_CONTAINER_NAME: ${MYSQL_CONTAINER_NAME}
+         MYSQL_USERNAME: ${MYSQL_USERNAME}
+         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+         MYSQL_DATABASE: ${MYSQL_DATABASE}
      # 指定构建后的镜像名称
-     image: ghm/django_app:${DJANGO_IMAGE_TAG}
+     image: ${DJANGO_IMAGE_NAME}:${DJANGO_IMAGE_TAG}
      # 指定重启策略
      restart: always
      volumes:
@@ -48,12 +53,19 @@ services:
    web:
      depends_on:
        - django_app
-     build: ./nginx_docker
-     image: ghm/api-test-nginx:${WEB_IMAGE_TAG}
+     build:
+       context: ./nginx_docker
+       args:
+         FRONT_END_PROJECT_NAME: ${FRONT_END_PROJECT_NAME}
+         SERVER_ACCESS_ADDR: ${SERVER_ACCESS_ADDR}
+         BACK_END_PORT: ${BACK_END_PORT}
+         SERVER_ADDR: ${SERVER_ADDR}
+         DJANGO_CONTAINER_NAME: ${DJANGO_CONTAINER_NAME}
+     image: ${WEB_IMAGE_NAME}:${WEB_IMAGE_TAG}
      restart: always
      ports:
-       - "${WEB_EXPOSE_PORT}:80"
-       - "${WEB_API_PORT}:8000"
+       - "${FRONT_END_PORT}:80"
+       - "${BACK_END_PORT}:8000"
      volumes:
        - logs:/var/log/nginx/
      environment:
@@ -70,7 +82,7 @@ networks:
 
 # 指定数据卷
 volumes:
-#    mysql_db:
+    #mysql_db:
     rmq:
     django_code:
     logs:

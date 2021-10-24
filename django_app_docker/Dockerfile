@@ -2,7 +2,9 @@ FROM python:3.7-alpine
 LABEL maintainer='1010562639@qq.com'
 LABEL description='Deploying Django project'
 
-ENV PROJECT_NAME=runapi
+ARG PROJECT_NAME MYSQL_CONTAINER_NAME MYSQL_USERNAME MYSQL_ROOT_PASSWORD MYSQL_DATABASE
+ENV PROJECT_NAME=${PROJECT_NAME} MYSQL_CONTAINER_NAME=${MYSQL_CONTAINER_NAME} MYSQL_USERNAME=${MYSQL_USERNAME} \
+    MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} MYSQL_DATABASE=${MYSQL_DATABASE}
 
 # cd /usr/src/app
 WORKDIR /usr/src/app
@@ -21,7 +23,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
     echo "Asia/Shanghai" > /etc/timezone && \
     apk del tzdata && \
     apk update && apk upgrade && \
-    /usr/local/bin/python -m pip install --upgrade pip
     pip install --no-cache-dir -i https://pypi.douban.com/simple -r requirements.txt && \
     pip install -i https://pypi.douban.com/simple gunicorn && \
 	rm -rf /var/cache/apk/* && \
