@@ -23,6 +23,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
     echo "Asia/Shanghai" > /etc/timezone && \
     apk del tzdata && \
     apk update && apk upgrade && \
+    pip install --upgrade pip --index-url https://pypi.douban.com/simple
     pip install --no-cache-dir -i https://pypi.douban.com/simple -r requirements.txt && \
     pip install -i https://pypi.douban.com/simple gunicorn && \
 	rm -rf /var/cache/apk/* && \
