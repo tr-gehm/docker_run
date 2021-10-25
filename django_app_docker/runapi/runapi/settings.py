@@ -13,6 +13,8 @@ import os
 import sys
 import datetime
 from pathlib import Path
+from celery import Celery, platforms
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -64,7 +66,8 @@ INSTALLED_APPS = [
     'reports.apps.ReportsConfig',
     'envs.apps.EnvsConfig',
     'debugtalks.apps.DebugtalksConfig',
-    'summary.apps.SummaryConfig'
+    'summary.apps.SummaryConfig',
+    'django_celery_results.apps.DjangoCeleryResultsConfig',
 ]
 
 MIDDLEWARE = [
@@ -252,4 +255,12 @@ LOGGING = {
         },
     }
 }
+
+
+# celery异步任务执行结果存放至mysql数据库中的id值长度，默认长度为255字节
+DJANGO_CELERY_RESULTS_TASK_ID_MAX_LENGTH = 191
+
+platforms.C_FORCE_ROOT = True  #加上这一行
+
+BROKER_URL = 'amqp://admin:mypass@121.43.178.79:5673//'
 
