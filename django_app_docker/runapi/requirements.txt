@@ -60,4 +60,4 @@ uritemplate==3.0.1
 urllib3==1.26.6
 wcwidth==0.2.5
 zipp==3.5.0
-celery==5.20
+celery==5.2.0
