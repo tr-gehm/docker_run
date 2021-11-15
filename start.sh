@@ -82,7 +82,7 @@ function start_or_restart
     fi
 }
 
-
+0
 # 关闭项目
 function close
 {
@@ -106,7 +106,7 @@ function build_or_rebuild_image
 
     echo -e "开始构建镜像..."
     docker-compose -p "${CONTAINER_NAME_PREFIX}" build --no-cache
-0
+
 }
 
 
