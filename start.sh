@@ -3,8 +3,8 @@
 #Description: start run script
 
 
-# 初始化，加载环境变量
-function init
+# 初始i化，加载环境变量
+function initi
 {
     source .env
     PROJECT_PATH="$PWD"

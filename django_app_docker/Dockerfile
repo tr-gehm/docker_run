@@ -11,7 +11,7 @@ WORKDIR /usr/src/app
 # /usr/src/app/runapi/
 COPY ./${PROJECT_NAME} ./${PROJECT_NAME}/
 # /usr/src/app/configs/
-COPY ./gunicorn_config.py ./configs/
+COPY ./gunicorn_config.py ./configs/i
 COPY ./docker-entrypoint.sh /entrypoint.sh
 
 # cd /usr/src/app/runapi/
